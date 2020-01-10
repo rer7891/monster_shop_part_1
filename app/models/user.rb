@@ -11,6 +11,9 @@ class User <ApplicationRecord
   belongs_to :merchant, optional: true
   has_many :orders, dependent: :destroy
 
+  has_many :user_coupons, dependent: :destroy
+  has_many :coupons, through: :user_coupons
+
   has_secure_password
 
   enum role: %w(user merchant_employee merchant_admin admin_user)
