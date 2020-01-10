@@ -10,6 +10,7 @@ describe Coupon, type: :model do
 
   describe "relationships" do
     it {should belong_to :merchant}
-    it {should have_many :users}
+    it {should have_many :user_coupons}
+    it {should have_many(:users).through(:user_coupons)}
   end
-end 
+end
