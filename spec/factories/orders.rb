@@ -6,5 +6,6 @@ FactoryBot.define do
     state     {Faker::Address.state_abbr}
     zip       {12345}
     association :user, factory: :regular_user
+    association :coupon, factory: :random_coupon
   end
 end
