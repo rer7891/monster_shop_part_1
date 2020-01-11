@@ -10,6 +10,7 @@ class CartController < ApplicationController
 
   def show
     @items = cart.items
+    @coupon = Coupon.new
   end
 
   def empty
