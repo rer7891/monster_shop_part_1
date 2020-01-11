@@ -12,10 +12,14 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of :email }
     it { should define_enum_for(:role).with_values([:user, :merchant_employee, :merchant_admin, :admin_user]) }
   end
+
   describe "relationships" do
     it { should have_many :orders }
     it { should belong_to(:merchant).optional }
+    it {should have_many :user_coupons }
+    it {should have_many(:coupons).through(:user_coupons)}
   end
+
   describe "roles" do
     it "can be created as a user" do
       user = User.create(name: "penelope",

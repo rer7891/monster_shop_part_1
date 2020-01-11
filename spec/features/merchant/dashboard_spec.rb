@@ -80,8 +80,5 @@ describe "merchant dashboard" do
           expect(current_path).to eq("/merchant/orders/#{order_2.id}")
         end
       end
-
-      it "the order list includes order_id which is link to order show page, date created, total quantity of my items and total value for that order " do
-      end
   end
 end
