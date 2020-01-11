@@ -22,12 +22,14 @@ RSpec.describe "As a user", type: :feature do
   visit cart_path
   end
 
-  it "I see a spot to enter a coupon for my order" do
+  it "I can enter a coupon for my order" do
     fill_in "Code", with: @coupon_1.code
-    click_button "Submit Coupon"
+    click_button "Create Coupon"
   end
 
-  xit "when I enter a coupon it only discounts the items from that merchant" do
+  it "when I enter a coupon it only discounts the items from that merchant" do
+    fill_in "Code", with: @coupon_1.code
+    click_button "Create Coupon"
   end
 
   xit "I can continue shopping after entering code and coupon will be there when I return" do
