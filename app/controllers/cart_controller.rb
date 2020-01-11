@@ -10,7 +10,11 @@ class CartController < ApplicationController
 
   def show
     @items = cart.items
-    @coupon = Coupon.new
+    if session[:coupon] == nil
+      @coupon = Coupon.new
+    else
+      @coupon = Coupon.where(code: session[:coupon]).first
+    end
   end
 
   def empty
