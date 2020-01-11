@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
+  resources :coupons, only: [:create]
+
   resources :reviews, only: [:edit, :update, :destroy]
 
   get "/register", to: "users#new"
