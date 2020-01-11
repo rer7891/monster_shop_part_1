@@ -1,1 +1,11 @@
-<%= binding.pry %>
+<h1>Coupon: <%=@coupon.name %> </h1>
+<h3>Coupon Users:</h3>
+
+  <%@coupon.users.each do |user| %>
+    <%= user.name %>
+     <%user.orders.each do |order| %>
+        <p>Order Name: <%= link_to order.name, "/merchant/orders/#{order.id}" if order.coupon_id != nil%></p>
+    <%end %>
+  <%end %>
+
+<p> Number of Uses: </p>
