@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :random_coupon, class: Coupon do
-    sequence(:name)   {Faker::Hipster}
+    name              {Faker::FunnyName.name}
     code              {Faker::Code.asin}
-    price             {rand(1..100)}
+    percent           {rand(1..100)}
     used?             {false}
+    active            {true}
     association       :merchant, factory: :jomah_merchant
   end
 end
