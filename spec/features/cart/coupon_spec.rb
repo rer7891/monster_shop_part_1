@@ -23,20 +23,19 @@ RSpec.describe "As a user", type: :feature do
   end
 
   it "I see a spot to enter a coupon for my order" do
-    #expect(page).to have_css('input[type="Coupon Code"]')
     fill_in "Code", with: @coupon_1.code
-    click_button "Create Coupon"
+    click_button "Submit Coupon"
   end
 
-  it "when I enter a coupon it only discounts the items from that merchant" do
+  xit "when I enter a coupon it only discounts the items from that merchant" do
   end
 
-  it "I can continue shopping after entering code and coupon will be there when I return" do
+  xit "I can continue shopping after entering code and coupon will be there when I return" do
   end
 
-  it "I will see calculated subtotals and the grand total as usual, also a discounted total" do
+  xit "I will see calculated subtotals and the grand total as usual, also a discounted total" do
   end
 
-  it "when I enter an additional coupon on that order it replaces the old one" do
+  xit "when I enter an additional coupon on that order it replaces the old one" do
   end
 end
