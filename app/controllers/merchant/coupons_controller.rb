@@ -23,16 +23,22 @@ class Merchant::CouponsController <  Merchant::BaseController
   end
 
   def create
-    merchant = current_user.merchant
-    coupon = merchant.coupons.new(coupon_params)
-    if coupon.save
+    @merchant = current_user.merchant
+    @coupon = @merchant.coupons.new(coupon_params)
+    if @coupon.save
       flash[:success] = "You added a new coupon."
       redirect_to merchant_dash_coupons_path
     else
-      generate_error(coupon)
+      generate_error(@coupon)
       render :new
     end
   end
+
+  def edit
+    @coupon = Coupon.find(params[:id])
+  end
+
+
 
   private
 
