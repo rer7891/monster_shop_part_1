@@ -1,11 +1,11 @@
 <center>
-<%= form_for [:merchant, @coupon], url: merchant_dash_coupons_path do |f| %>
+
   <%= f.label :name%>
-  <%= f.text_field :name%>
+  <%= f.text_field :name%><br>
   <%= f.label :code%>
-  <%= f.text_field :code%>
+  <%= f.text_field :code%><br>
   <%= f.label :percent%>
-  <%= f.text_field :percent%>
+  <%= f.text_field :percent%><br>
   <%= f.submit %>
-<% end %>
+
 </center>
