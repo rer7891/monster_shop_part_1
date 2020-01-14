@@ -26,16 +26,27 @@ RSpec.describe "As a merchant employee", type: :feature do
   end
 
   it "can only have 5 active coupons" do
-    coupon_x = create(:random_coupon, merchant: @merchant)
-    coupon_7 = create(:random_coupon, merchant: @merchant)
-    coupon_t = create(:random_coupon, merchant: @merchant)
-    coupon_j = create(:random_coupon, merchant: @merchant)
-    coupon_q = create(:random_coupon, merchant: @merchant)
+    coupon_1 = create(:random_coupon, merchant: @merchant)
+    coupon_2 = create(:random_coupon, merchant: @merchant)
+    coupon_3 = create(:random_coupon, merchant: @merchant)
+    coupon_4 = create(:random_coupon, merchant: @merchant)
+    coupon_5 = create(:random_coupon, merchant: @merchant)
 
     visit merchant_dash_coupons_path
     click_link "Add A Coupon"
 
     expect(current_path).to eq(merchant_dash_coupons_path)
     expect(page).to have_content("Deactivate a coupon if you wish to add more.")
+  end
+
+  it "must have all fields filled in to create coupon" do
+    click_link "Add A Coupon"
+
+    fill_in "Name", with: ""
+    fill_in "Code", with: "XRT45Q"
+    fill_in "Percent", with: 0.45
+    click_on "Create Coupon"
+  
+    expect(page).to have_content("Name can't be blank")
   end
 end
