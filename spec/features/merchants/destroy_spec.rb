@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "As a visitor" do
   describe "When I visit a merchant show page" do
-    before :each do
 
-    end
     it "I can delete a merchant" do
       @user = create(:admin_user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
