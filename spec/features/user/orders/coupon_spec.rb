@@ -10,6 +10,7 @@ RSpec.describe "As a user", type: :feature do
     @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
     @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
     @coupon_1 = create(:random_coupon, percent: 0.43, merchant: @mike)
+
     visit "/items/#{@paper.id}"
     click_on "Add To Cart"
     visit "/items/#{@pencil.id}"
@@ -23,7 +24,15 @@ RSpec.describe "As a user", type: :feature do
     click_on "Checkout"
     click_on "Create Order"
 
+    fill_in :name, with: @user.name
+    fill_in :address, with: @user.address
+    fill_in :city, with: @user.city
+    fill_in :state, with: @user.state
+    fill_in :zip, with: @user.zip
+
+    click_button "Create Order"
   end
-  xit "can attach a discount to an order" do
+  it "can attach a discount to an order" do
+    order = Order.last
   end
 end
