@@ -11,7 +11,7 @@ FactoryBot.define do
   factory :coupon_1, class: Coupon do
    name      {"Holiday Sale"}
    code      {"HOLIDAY1"}
-   percent?  {0.40}
+   percent   {0.40}
    used?     {true}
    active    {true}
    association       :merchant, factory: :jomah_merchant
