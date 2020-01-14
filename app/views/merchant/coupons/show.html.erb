@@ -1,11 +1,13 @@
 <h1>Coupon: <%=@coupon.name %> </h1>
 <h3>Coupon Users:</h3>
 
-  <%@coupon.users.each do |user| %>
-    <%= user.name %>
-     <%user.orders.each do |order| %>
-        <p>Order Name: <%= link_to order.name, "/merchant/orders/#{order.id}" if order.coupon_id != nil%></p>
+  <%@coupon.users.distinct.each do |user| %>
+    <p><%= user.name %></p>
+     <%user.orders.distinct.each do |order| %>
+      <%if order.coupon_id == @coupon.id %>
+        <p>Order Name: <%= link_to "#{order.name}", "/merchant/orders/#{order.id}"%></p>
+      <%end %>
     <%end %>
   <%end %>
 
-<p> Number of Uses: </p>
+<p> Number of Uses: <%= @coupon.user_coupons.count %> </p>
