@@ -13,8 +13,9 @@ RSpec.describe "As a merchant", type: :feature do
     @order_3 = create(:random_order, user: @user_2, coupon: @coupon_1)
     @order_4 = create(:random_order, user: @user_2)
 
-    @user.coupons << @coupon_1
-    @user_2.coupons << @coupon_1
+    @user.user_coupons.create(coupon: @coupon_1)
+    @user.user_coupons.create(coupon: @coupon_1)
+    @user_2.user_coupons.create(coupon: @coupon_1)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
     visit merchant_dash_coupon_path(@coupon_1)
@@ -30,9 +31,5 @@ RSpec.describe "As a merchant", type: :feature do
     expect(page).to have_content(@order_2.name)
     expect(page).to have_content(@order_3.name)
     expect(page).not_to have_content(@order_4.name)
-  end
-
-  xit "I can see number of uses" do
-
   end
 end
