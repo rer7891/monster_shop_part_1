@@ -43,7 +43,7 @@
         </td>
       <td>
         <p><%=number_to_currency(cart.subtotal(item)/100.to_f)%></p>
-        <p><%=number_to_currency(cart.discount(item, @coupon)) if @coupon.id != nil && item.merchant.id == @coupon.merchant.id %></p>
+
     </td>
     </tr>
   <% end %>
