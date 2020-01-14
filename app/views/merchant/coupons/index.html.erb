@@ -1,0 +1,17 @@
+<h1><%=current_user.merchant.name%></h1>
+  <%=link_to "List All Coupons Including Inactive Coupons", merchant_dash_coupons_path(sort: "active_status") %><br>
+
+  <%@coupons.each do |coupon| %>
+
+  <table>
+    <section id="coupon-<%=coupon.id%>">
+      <p>Coupon: <%=link_to coupon.name, merchant_dash_coupon_path(coupon) %></p>
+      <p>Code: <%=coupon.code %></p>
+      <p>Percent Off: <%=coupon.percent%>%</p>
+      <p>Used: <%=coupon.used? %></p>
+      <p><%= link_to "Edit Coupon", edit_merchant_dash_coupon_path(coupon) %></p>
+      <p><%= link_to "Delete Coupon", merchant_dash_coupon_path(coupon), method: :delete %></p>
+    </section>
+  </table>
+<%end %>
+<p><%= link_to "Add A Coupon", new_merchant_dash_coupon_path %></p>

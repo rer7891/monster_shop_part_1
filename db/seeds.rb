@@ -1,9 +1,10 @@
 include FactoryBot::Syntax::Methods
 
+User.destroy_all
+Coupon.destroy_all
 Merchant.destroy_all
 Item.destroy_all
 Review.destroy_all
-User.destroy_all
 Order.destroy_all
 ItemOrder.destroy_all
 
@@ -12,6 +13,10 @@ jomah = create(:jomah_merchant)
 wren = create(:wren_merchant)
 becky = create(:becky_merchant)
 ray = create(:ray_merchant)
+
+#creates 2 coupons
+coupon_1 = create(:random_coupon, merchant: jomah)
+coupon_2 = create(:random_coupon, merchant: becky)
 
 # creates one item belonging to jomah and makes 10 reviews for it
 item_1 = create(:random_item, merchant: jomah)
@@ -35,7 +40,7 @@ hidden_ray_items = create_list(:random_item, 3, merchant: ray, active?: false)
 
 #you can now log in as any of these users as defined in the factory
 user = create(:regular_user)
-create(:merchant_employee, merchant: jomah)
+create(:merchant_employee, email: "sogood@gmail.com", password_digest: "sogood1", merchant: jomah)
 create(:merchant_admin, merchant: jomah)
 create(:admin_user)
 

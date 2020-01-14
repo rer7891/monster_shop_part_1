@@ -1,5 +1,6 @@
 <h2><%= @merchant.name %></h2>
 <p><%= @merchant.address %> <%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
+<p><%= link_to "Manage Coupons", merchant_dash_coupons_path if current_merchant_user? %></p>
 <p><%= link_to "All #{@merchant.name} Items", "/merchant/items" unless current_admin_user? %></p>
 <p><%= link_to "All #{@merchant.name} Items", "/admin/merchants/#{@merchant.id}/items" if current_admin_user? %></p>
 <p><%= link_to "Update Merchant", "/merchants/#{@merchant.id}/edit" %></p>
@@ -13,4 +14,5 @@
     <p>Order Total: <%= number_to_currency(order.subtotal_from(@merchant)/100.to_f) %></p>
   </section>
   <% end %>
+
 </section>

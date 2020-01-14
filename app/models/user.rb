@@ -1,6 +1,6 @@
 class User <ApplicationRecord
 
-  scope :active, -> { where(active: 'true') }
+  scope :active, -> { where(active: true) }
   validates :email, presence: true, uniqueness: true, case_sensitive: false
   validates_confirmation_of :password
   validates_presence_of :password_digest
@@ -10,6 +10,9 @@ class User <ApplicationRecord
 
   belongs_to :merchant, optional: true
   has_many :orders, dependent: :destroy
+
+  has_many :user_coupons, dependent: :destroy
+  has_many :coupons, through: :user_coupons
 
   has_secure_password
 

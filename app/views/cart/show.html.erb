@@ -1,5 +1,4 @@
 <h1>Cart</h1>
-
 <% if !current_user %>
   <h2> Login needed to Checkout </h2>
 <% end %>
@@ -14,7 +13,7 @@
     <th>Quantity</th>
     <th>Subtotal</th>
   </tr>
-  <% @items.each do |item,quantity| %>
+  <% @items.each do |item, quantity| %>
     <tr id= "cart-item-<%=item.id%>">
       <td>
         <p align = "center">
@@ -44,15 +43,18 @@
         </td>
       <td>
         <p><%=number_to_currency(cart.subtotal(item)/100.to_f)%></p>
+        <p><%=number_to_currency(cart.discount(item, @coupon)) if item.merchant_id == @coupon.merchant_id %></p>
     </td>
     </tr>
   <% end %>
 </table>
   <p>Total: <%= number_to_currency(cart.total/100.to_f) %></p>
+  <p>Discounted Total <%=number_to_currency(cart.discounted_total(@coupon)) %></p>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
+  <p><%= render 'coupon' %></p>
   <p><%= link_to "Checkout", "/profile/orders/new", method: :get %></p>
 <% else %>
-  <h3 align= "center">Cart is currently empty</h3>
+  <h3 align= "center"> Cart is currently empty </h3>
 <% end %>
 <table>
 </center>

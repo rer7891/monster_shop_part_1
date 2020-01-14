@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       patch "/toggle_active", to: "items#toggle_active"
     end
 
+    resources :coupons
+
     resources :orders, only: [:show] do
       resources :item_orders, only: [] do
         patch "/fulfill", to: "orders#fulfill"
@@ -52,6 +54,8 @@ Rails.application.routes.draw do
   resources :items do
     resources :reviews, only: [:new, :create]
   end
+
+  resources :coupons, only: [:create]
 
   resources :reviews, only: [:edit, :update, :destroy]
 
