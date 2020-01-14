@@ -4,5 +4,4 @@ class CouponsController < ApplicationController
     @coupon = session[:coupon]
     redirect_to cart_path
   end
-  
 end
