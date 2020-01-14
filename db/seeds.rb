@@ -15,7 +15,7 @@ becky = create(:becky_merchant)
 ray = create(:ray_merchant)
 
 #creates 2 coupons
-coupon_1 = create(:random_coupon, merchant: jomah)
+coupon_1 = create(:coupon_1)
 coupon_2 = create(:random_coupon, merchant: becky)
 
 # creates one item belonging to jomah and makes 10 reviews for it
@@ -40,9 +40,15 @@ hidden_ray_items = create_list(:random_item, 3, merchant: ray, active?: false)
 
 #you can now log in as any of these users as defined in the factory
 user = create(:regular_user)
+user_2 = create(:regular_user_2)
 create(:merchant_employee, merchant: jomah)
 create(:merchant_admin, merchant: jomah)
 create(:admin_user)
+
+#create user_coupons
+user.user_coupons.create(coupon: coupon_1)
+user.user_coupons.create(coupon: coupon_1)
+user_2.user_coupons.create(coupon: coupon_1)
 
 #creates 3 orders each ordering a random quantity of each item
 order_1 = create(:random_order, user: user, status: 0)

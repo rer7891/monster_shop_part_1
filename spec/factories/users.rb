@@ -22,6 +22,17 @@ FactoryBot.define do
     role      {0}
   end
 
+  factory :regular_user_2, class: User do
+   name      {"Becky Robran"}
+   address   {"123 Flint Way"}
+   city      {"Gotham"}
+   state     {"AZ"}
+   zip       {53440}
+   email     {"notsogood@gmail.com"}
+   password  {"oknow"}
+   role      {0}
+ end
+
   factory :merchant_employee, class: User do
     name      {"Diana Prince"}
     address   {"456 Super Ln"}
