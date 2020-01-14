@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
                 :current_admin_user?,
                 :current_employee?
 
+
   def cart
     session[:cart] ||= Hash.new(0)
     @cart ||= Cart.new(session[:cart])
