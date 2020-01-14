@@ -38,7 +38,17 @@ class Merchant::CouponsController <  Merchant::BaseController
     @coupon = Coupon.find(params[:id])
   end
 
-
+  def update
+    @coupon = Coupon.find(params[:id])
+    @coupon.update(coupon_params)
+    if @coupon.save
+      flash[:success] = "You have updated your coupon."
+      redirect_to merchant_dash_coupons_path
+    else
+      generate_error(@coupon)
+      render :edit
+    end
+  end
 
   private
 
