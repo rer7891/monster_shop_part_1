@@ -7,7 +7,7 @@ RSpec.describe "As a merchant", type: :feature do
     @user = create(:random_user)
     @user_2 = create(:random_user)
     @user_3 = create(:random_user)
-    @coupon_1 = create(:random_coupon, merchant: @merchant)
+    @coupon_1 = create(:random_coupon, code: "FDES89", merchant: @merchant)
     @order_1 = create(:random_order, user: @user, coupon: @coupon_1)
     @order_2 = create(:random_order, user: @user, coupon: @coupon_1)
     @order_3 = create(:random_order, user: @user_2, coupon: @coupon_1)

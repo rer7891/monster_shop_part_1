@@ -5,11 +5,11 @@ RSpec.describe "As a merchant", type: :feature do
     @merchant = create(:jomah_merchant)
     @ray = create(:ray_merchant)
     @merchant_employee = create(:merchant_employee, merchant: @merchant)
-    @coupon_1 = create(:random_coupon, merchant: @merchant)
-    @coupon_2 = create(:random_coupon, merchant: @merchant)
-    @coupon_3 = create(:random_coupon, merchant: @merchant)
-    @coupon_4 = create(:random_coupon, merchant: @ray)
-    @coupon_5 = create(:random_coupon, active: false, merchant: @merchant)
+    @coupon_1 = create(:random_coupon, code: "AFRE32", merchant: @merchant)
+    @coupon_2 = create(:random_coupon, code: "ADFADF364", merchant: @merchant)
+    @coupon_3 = create(:random_coupon, code: "ADF43", merchant: @merchant)
+    @coupon_4 = create(:random_coupon, code: "ADFAE211", merchant: @ray)
+    @coupon_5 = create(:random_coupon, code: "AFAD54", active: false, merchant: @merchant)
     @coupons = [@coupon_1, @coupon_2, @coupon_3]
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
