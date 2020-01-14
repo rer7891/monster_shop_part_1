@@ -40,6 +40,7 @@ class Merchant::CouponsController <  Merchant::BaseController
 
   def update
     @coupon = Coupon.find(params[:id])
+
     @coupon.update(coupon_params)
     if @coupon.save
       flash[:success] = "You have updated your coupon."
@@ -52,8 +53,12 @@ class Merchant::CouponsController <  Merchant::BaseController
 
   def destroy
     coupon = Coupon.find(params[:id])
-    coupon.destroy
-    flash[:success] = "Coupon Deleted"
+    if coupon.used? == false
+       coupon.destroy
+      flash[:success] = "Coupon Deleted"
+    else
+     flash[:error] = "You cannot delete this coupon."
+    end
     redirect_to merchant_dash_coupons_path
   end
 
