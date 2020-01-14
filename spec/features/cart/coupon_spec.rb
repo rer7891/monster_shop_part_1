@@ -30,28 +30,7 @@ RSpec.describe "As a user", type: :feature do
     click_button "Create Coupon"
   end
 
-  it "when I enter a coupon it only discounts the items from that merchant" do
-    fill_in "Code", with: @coupon_1.code
-    click_button "Create Coupon"
 
-    within "#cart-item-#{@tire.id}" do
-      expect(page).to have_content("$1.35")
-      expect(page).to have_content("$0.77")
-    end
-    within "#cart-item-#{@seat.id}" do
-      expect(page).to have_content("$3.00")
-      expect(page).to have_content("$1.71")
-    end
-    within "#cart-item-#{@pencil.id}" do
-      expect(page).to have_content("2.35")
-      expect(page).to_not have_content("$1.34")
-    end
-    within "#cart-item-#{@paper.id}" do
-      expect(page).to have_content("$2.00")
-      expect(page).to_not have_content("$1.14")
-    end
-
-  end
 
   it "I can continue shopping after entering code and coupon will be there when I return" do
     tofu = @meg.items.create(name: "Tofu", description: "You can eat it.", price: 200, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 60)
@@ -66,13 +45,9 @@ RSpec.describe "As a user", type: :feature do
     visit "/cart"
     within "#cart-item-#{tofu.id}" do
       expect(page).to have_content("$2.00")
-      expect(page).to have_content("$1.14")
     end
 
-    within "#cart-item-#{@tire.id}" do
-      expect(page).to have_content("$1.35")
-      expect(page).to have_content("$0.77")
-    end
+    expect(page).to have_content("Discounted Total $7.97")
   end
 
   it "I will see calculated subtotals and the grand total as usual, also a discounted total" do
@@ -88,13 +63,6 @@ RSpec.describe "As a user", type: :feature do
     fill_in "Code", with: @coupon_2.code
     click_button "Create Coupon"
 
-    within "#cart-item-#{@tire.id}" do
-      expect(page).to have_content("$1.35")
-      expect(page).to have_content("$1.01")
-    end
-    within "#cart-item-#{@seat.id}" do
-      expect(page).to have_content("$3.00")
-      expect(page).to have_content("$2.25")
-    end
+    expect(page).to have_content("Discounted Total $7.61")
   end
 end

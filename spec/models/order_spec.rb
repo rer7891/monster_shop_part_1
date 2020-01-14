@@ -24,6 +24,7 @@ describe Order, type: :model do
 
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+      @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       @user = create(:regular_user)
       @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
 
@@ -75,6 +76,22 @@ describe Order, type: :model do
 
     it 'subtotal_from' do
       expect(@order_1.subtotal_from(@meg)).to eq 200
+    end
+    it "can calculate discounted totals and savings" do
+      @user = create(:random_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 250, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+      @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 210, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      @order = create(:random_order, user: @user)
+
+      @order.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, discount_price: 0.70)
+      @order.item_orders.create!(item: @paper, price: @paper.price, quantity: 3, discount_price: 0)
+
+      expect(@order.discounted_grand_total).to eq(8.90)
+      expect(@order.savings).to eq(0.60)
     end
   end
 

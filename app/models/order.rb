@@ -9,7 +9,21 @@ class Order <ApplicationRecord
   enum status: %w(packaged pending shipped cancelled)
 
   def grandtotal
-    item_orders.sum('price * quantity')
+    item_orders.sum('price * quantity').round(2)
+  end
+
+  def discounted_grand_total
+    discounted = item_orders.where("discount_price != 0")
+    discount = discounted.sum('discount_price * quantity')
+
+    non_discounted = item_orders.where("discount_price = 0")
+    price = non_discounted.sum('price/100 * quantity')
+
+    total = (discount += price).round(2)
+  end
+
+  def savings
+    savings = ((grandtotal/100) - discounted_grand_total).round(2)
   end
 
   def cancel

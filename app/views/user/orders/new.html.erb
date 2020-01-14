@@ -19,7 +19,12 @@
     </tr>
   <% end %>
 </table>
-<h3 align = "right">Total: <%= number_to_currency(cart.total/100.to_f)%></h3>
+
+<% if cart.discounted_total(@coupon) > 0 %>
+  <h3 align = "right">Discounted Total: <%= number_to_currency(cart.discounted_total(@coupon))%></h3>
+<%else %>
+  <h3 align = "right">Total: <%= number_to_currency(cart.total/100.to_f)%></h3>
+<%end %>
 <center>
   <h2>Shipping Info:</h2>
   <%= form_tag "/orders", method: :create do %>

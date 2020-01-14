@@ -50,7 +50,11 @@
 
 <section id="grandtotal">
   <p>Total Quantity Ordered: <%= @order.quantity_ordered %></p>
-  <p>Total: <%=number_to_currency(@order.grandtotal/100.to_f)%></p>
+  <%if @order.discounted_grand_total > 0 %>
+    <p>Discounted Total: <%=number_to_currency(@order.discounted_grand_total)%></p>
+  <%else%>
+    <p>Total: <%=number_to_currency(@order.grandtotal/100.to_f)%></p>
+  <%end %>
 </section>
 <section id="datecreated">
   <p> Ordered at:<%= @order.created_at%></p>

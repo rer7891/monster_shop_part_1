@@ -8,6 +8,9 @@
       <p>Last Updated: <%= order.updated_at %></p>
       <p>Total Items: <%= order.quantity_ordered %></p>
       <p>Total Price: <%= number_to_currency(order.grandtotal/100.to_f) %></p>
+      <%  if order.discounted_grand_total > 0 %>
+        <p>Discounted Price: <%= number_to_currency(order.discounted_grand_total) %></p>
+      <% end  %>
       <h4>Order Status: <%= order.status.capitalize %></h4>
     </section>
   <% end %>
