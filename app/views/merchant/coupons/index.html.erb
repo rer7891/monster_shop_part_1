@@ -9,6 +9,8 @@
       <p>Code: <%=coupon.code %></p>
       <p>Percent Off: <%=coupon.percent%>%</p>
       <p>Used: <%=coupon.used? %></p>
+      <p><%= link_to "Edit Coupon", edit_merchant_dash_coupon_path(coupon) %></p>
+      <p><%= link_to "Delete Coupon", merchant_dash_coupon_path(coupon), method: :delete %></p>
     </section>
   </table>
 <%end %>

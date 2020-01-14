@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       patch "/toggle_active", to: "items#toggle_active"
     end
 
-    resources :coupons, only: [:index, :show, :new, :create]
+    resources :coupons
 
     resources :orders, only: [:show] do
       resources :item_orders, only: [] do
