@@ -3,8 +3,10 @@ require "rails_helper"
 RSpec.describe Cart do
   describe "methods" do
     before :each do
+      @merchant = create(:jomah_merchant)
+      @ray = create(:ray_merchant)
       @session = Hash.new(0)
-      @item = create(:random_item)
+      @item = create(:random_item, price: 250, merchant: @merchant)
       @session[@item.id.to_s] = 0
       @cart ||= Cart.new(@session)
     end
@@ -73,6 +75,15 @@ RSpec.describe Cart do
       expect(@cart.quantity_zero?(@item.id.to_s)).to eq(true)
       @cart.add_item(@item.id.to_s)
       expect(@cart.quantity_zero?(@item.id.to_s)).to eq(false)
+    end
+
+    it "can calculate a discounted price and discounted total" do
+      coupon = create(:random_coupon, percent: 0.40, merchant: @merchant)
+      item_2 = create(:random_item, price: 100, merchant: @ray)
+      @cart.add_item(@item.id.to_s)
+      @cart.add_item(item_2.id.to_s)
+      expect(@cart.discount(@item, coupon)).to eq(1.50)
+      expect(@cart.discounted_total(coupon)).to eq(2.50)
     end
   end
 end
