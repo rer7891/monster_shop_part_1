@@ -50,6 +50,13 @@ class Merchant::CouponsController <  Merchant::BaseController
     end
   end
 
+  def destroy
+    coupon = Coupon.find(params[:id])
+    coupon.destroy
+    flash[:success] = "Coupon Deleted"
+    redirect_to merchant_dash_coupons_path
+  end
+
   private
 
   def coupon_params
