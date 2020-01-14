@@ -44,6 +44,7 @@ class Cart
   end
 
   def discount(item, coupon)
+  return 0 if coupon == nil || item.merchant != coupon.merchant
   savings = item.price * coupon.percent
   (item.price - savings)/100
   end
