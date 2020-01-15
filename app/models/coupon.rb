@@ -4,7 +4,7 @@ class Coupon < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true
-  validates_presence_of :percent, in: 0..100
+  validates :percent, numericality: {less_than_or_equal_to: 0.99}
 
   belongs_to :merchant
 
