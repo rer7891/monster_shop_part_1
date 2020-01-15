@@ -9,8 +9,9 @@ RSpec.describe "As a visitor" do
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
 
       visit "/merchants"
-
-      click_on "Delete Merchant"
+      within "#merchant-#{bike_shop.id}" do
+        click_on "Delete Merchant"
+      end
 
       expect(current_path).to eq('/merchants')
       expect(page).to_not have_content("Brian's Bike Shop")
@@ -24,7 +25,10 @@ RSpec.describe "As a visitor" do
 
       visit "/merchants"
 
-      click_on "Delete Merchant"
+      within "#merchant-#{bike_shop.id}" do
+        click_on "Delete Merchant"
+      end
+
 
       expect(current_path).to eq('/merchants')
       expect(page).to_not have_content("Brian's Bike Shop")
