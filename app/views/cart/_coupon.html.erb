@@ -1,5 +1,5 @@
-<%= form_for @coupon ||= Coupon.new, url: coupons_path do |f| %>
+<%= form_for Coupon.new, url: coupons_path do |f| %>
   Coupon <%= f.label :code %>
   <%= f.text_field :code %>
-  <%= f.submit %>
+  <%= f.submit "Add Coupon" %>
 <% end %>

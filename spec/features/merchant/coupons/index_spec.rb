@@ -20,7 +20,7 @@ RSpec.describe "As a merchant", type: :feature do
       within "#coupon-#{coupon.id}" do
         expect(page).to have_link(coupon.name)
         expect(page).to have_content(coupon.code)
-        expect(page).to have_content(coupon.percent)
+        expect(page).to have_content(coupon.percent * 100)
         expect(page).to have_content(coupon.used?)
       end
     end
@@ -37,10 +37,21 @@ RSpec.describe "As a merchant", type: :feature do
     within "#coupon-#{@coupon_5.id}" do
       expect(page).to have_link(@coupon_5.name)
       expect(page).to have_content(@coupon_5.code)
-      expect(page).to have_content(@coupon_5.percent)
+      expect(page).to have_content(@coupon_5.percent * 100)
       expect(page).to have_content(@coupon_5.used?)
     end
     expect(page).not_to have_link(@coupon_4.name)
     expect(page).not_to have_content(@coupon_4.code)
+  end
+  it "can disable a coupon" do
+    expect(@coupon_1.active).to eq(true)
+    within "#coupon-#{@coupon_1.id}" do
+      expect(page).to have_link("Disable Coupon")
+      click_link "Disable Coupon"
+      expect(current_path).to eq(merchant_dash_coupons_path)
+    end
+    expect(page).not_to have_link(@coupon_1.name)
+    @coupon_1.reload
+    expect(@coupon_1.active).to eq(false)
   end
 end

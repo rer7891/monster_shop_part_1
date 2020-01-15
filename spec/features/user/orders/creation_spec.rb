@@ -42,6 +42,7 @@ RSpec.describe("Order Creation") do
       new_order = Order.last
 
       expect(current_path).to eq "/profile/orders"
+
       visit "/profile/orders/#{new_order.id}"
 
       within '.shipping-address' do

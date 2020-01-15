@@ -25,12 +25,17 @@ class Merchant::CouponsController <  Merchant::BaseController
   def create
     @merchant = current_user.merchant
     @coupon = @merchant.coupons.new(coupon_params)
+    @coupon.percent = (params[:coupon][:percent].to_f / 100)
     if @coupon.save
       flash[:success] = "You added a new coupon."
       redirect_to merchant_dash_coupons_path
     else
-      generate_error(@coupon)
-      render :new
+      if @coupon.percent > 0.99
+        flash[:error] = "Coupons cannot be more than 100% off."
+      else
+        generate_error(@coupon)
+      end
+    render :new
     end
   end
 
@@ -40,7 +45,6 @@ class Merchant::CouponsController <  Merchant::BaseController
 
   def update
     @coupon = Coupon.find(params[:id])
-
     @coupon.update(coupon_params)
     if @coupon.save
       flash[:success] = "You have updated your coupon."
@@ -65,6 +69,6 @@ class Merchant::CouponsController <  Merchant::BaseController
   private
 
   def coupon_params
-    params.require(:coupon).permit(:name, :code, :percent)
+    params.require(:coupon).permit(:name, :code, :percent, :active)
   end
 end

@@ -6,7 +6,7 @@
      <%user.orders.distinct.each do |order| %>
       <%if order.coupon_id == @coupon.id %>
         <p>Order Name: <%= link_to "#{order.name}", "/merchant/orders/#{order.id}"%></p>
-        <p>Order Savings: <%= order.savings %></p>
+        <p>Order Savings: $<%= order.savings %></p>
       <%end %>
     <%end %>
   <%end %>

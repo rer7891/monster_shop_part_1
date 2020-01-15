@@ -27,7 +27,7 @@ RSpec.describe "As a user", type: :feature do
 
   it "I can enter a coupon for my order" do
     fill_in "Code", with: @coupon_1.code
-    click_button "Create Coupon"
+    click_button "Add Coupon"
   end
 
 
@@ -37,7 +37,7 @@ RSpec.describe "As a user", type: :feature do
     visit "/cart"
 
     fill_in "Code", with: @coupon_1.code
-    click_button "Create Coupon"
+    click_button "Add Coupon"
 
     visit "/items/#{tofu.id}"
     click_on "Add To Cart"
@@ -52,7 +52,7 @@ RSpec.describe "As a user", type: :feature do
 
   it "I will see calculated subtotals and the grand total as usual, also a discounted total" do
     fill_in "Code", with: @coupon_1.code
-    click_button "Create Coupon"
+    click_button "Add Coupon"
 
     expect(page).to have_content("Total: $8.70")
     expect(page).to have_content("Discounted Total $6.83")
@@ -61,7 +61,7 @@ RSpec.describe "As a user", type: :feature do
 
   it "when I enter an additional coupon on that order it replaces the old one" do
     fill_in "Code", with: @coupon_2.code
-    click_button "Create Coupon"
+    click_button "Add Coupon"
 
     expect(page).to have_content("Discounted Total $7.61")
   end

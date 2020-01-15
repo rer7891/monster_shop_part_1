@@ -4,7 +4,7 @@ describe Coupon, type: :model do
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :code }
-    it { should validate_presence_of :percent }
+    it { should validate_numericality_of :percent }
   end
 
   describe "relationships" do

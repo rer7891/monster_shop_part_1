@@ -15,7 +15,7 @@ RSpec.describe "As a merchant employee", type: :feature do
 
     fill_in "Name", with: "4th of July Sale"
     fill_in "Code", with: "XRT45Q"
-    fill_in "Percent", with: 0.45
+    fill_in "Percent", with: 45
     click_on "Create Coupon"
 
     expect(Coupon.count).to eq(1)
@@ -44,7 +44,7 @@ RSpec.describe "As a merchant employee", type: :feature do
 
     fill_in "Name", with: ""
     fill_in "Code", with: "XRT45Q"
-    fill_in "Percent", with: 0.45
+    fill_in "Percent", with: 45
     click_on "Create Coupon"
 
     expect(page).to have_content("Name can't be blank")
