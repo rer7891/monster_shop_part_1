@@ -50,7 +50,9 @@
 
 <section id="grandtotal">
   <p>Total Quantity Ordered: <%= @order.quantity_ordered %></p>
-  <%if @order.discounted_grand_total > 0 %>
+  <%if  @order.coupon != nil && @order.discounted_grand_total > 0 %>
+    <p>Coupon Used: <%= @order.coupon.name %></p>
+    <p>Coupon Savings: $<%= @order.savings %></p>
     <p>Discounted Total: <%=number_to_currency(@order.discounted_grand_total)%></p>
   <%else%>
     <p>Total: <%=number_to_currency(@order.grandtotal/100.to_f)%></p>
