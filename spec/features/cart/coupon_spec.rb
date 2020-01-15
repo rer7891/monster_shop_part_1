@@ -65,4 +65,20 @@ RSpec.describe "As a user", type: :feature do
 
     expect(page).to have_content("Discounted Total $7.61")
   end
+
+  it "codes only work on items from coupons' merchant" do
+    within "#item-#{@tire.id}" do
+      click_on "Remove"
+    end
+
+    within "#item-#{@seat.id}" do
+      click_on "Remove"
+    end
+
+    fill_in "Code", with: @coupon_1.code
+    click_button "Add Coupon"
+
+    expect(page).to have_content("Total: $4.35")
+    expect(page).to have_content("Discounted Total $4.35")
+  end
 end
