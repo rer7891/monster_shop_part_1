@@ -7,9 +7,14 @@
     <section id="coupon-<%=coupon.id%>">
       <p>Coupon: <%=link_to coupon.name, merchant_dash_coupon_path(coupon) %></p>
       <p>Code: <%=coupon.code %></p>
-      <p>Percent Off: <%=coupon.percent%>%</p>
+      <p>Percent Off: <%=(coupon.percent * 100)%>%</p>
       <p>Used: <%=coupon.used? %></p>
       <p><%= link_to "Edit Coupon", edit_merchant_dash_coupon_path(coupon) %></p>
+      <%if coupon.active %>
+      <p><%= link_to "Disable Coupon", "/merchant/coupons//#{coupon.id}/active", method: :patch %></p>
+      <%else %>
+        <p><%= link_to "Enable Coupon", "/merchant/coupons/#{coupon.id}/active", method: :patch %></p>
+      <%end %>
       <p><%= link_to "Delete Coupon", merchant_dash_coupon_path(coupon), method: :delete %></p>
     </section>
   </table>
