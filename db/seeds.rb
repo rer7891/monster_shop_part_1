@@ -48,17 +48,16 @@ create(:admin_user)
 #create user_coupons
 user.user_coupons.create(coupon: coupon_1)
 user.user_coupons.create(coupon: coupon_1)
-user_2.user_coupons.create(coupon: coupon_1)
 
 #creates 3 orders each ordering a random quantity of each item
 order_1 = create(:random_order, user: user, status: 0, coupon: coupon_1)
 Item.all.each do |item|
-  create(:item_order, order: order_1, item: item, price: item.price)
+  create(:item_order, order: order_1, item: item, price: item.price, discount_price: 0.01)
 end
 
 order_2 = create(:random_order, user: user, status: 1, coupon: coupon_1)
 Item.all.each do |item|
-  create(:item_order, order: order_2, item: item, price: item.price)
+  create(:item_order, order: order_2, item: item, price: item.price, discount_price: 0.12)
 end
 
 order_3 = create(:random_order, user: user, status: 2)
