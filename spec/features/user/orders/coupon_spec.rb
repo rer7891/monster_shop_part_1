@@ -20,7 +20,7 @@ RSpec.describe "As a user", type: :feature do
 
     visit "/cart"
     fill_in "Code", with: @coupon_1.code
-    click_button "Create Coupon"
+    click_button "Add Coupon"
     click_on "Checkout"
     click_on "Create Order"
 
