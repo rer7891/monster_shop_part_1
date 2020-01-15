@@ -22,7 +22,7 @@ RSpec.describe "As a merchant", type: :feature do
   end
 
   it "I can see coupon users and orders" do
-save_and_open_page
+
     expect(page).to have_content(@coupon_1.name)
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user_2.name)
