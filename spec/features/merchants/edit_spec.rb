@@ -10,7 +10,9 @@ RSpec.describe "As a Visitor" do
     it 'I can see prepopulated info on that user in the edit form' do
       visit "/merchants"
 
-      click_on "Update Merchant"
+      within "#merchant-#{@bike_shop.id}" do
+        click_on "Update Merchant"
+      end
 
       expect(page).to have_link(@bike_shop.name)
       expect(find_field('Name').value).to eq "Brian's Bike Shop"
@@ -22,7 +24,10 @@ RSpec.describe "As a Visitor" do
 
     it 'I can edit merchant info by filling in the form and clicking submit' do
       visit "/merchants"
-      click_on "Update Merchant"
+
+      within "#merchant-#{@bike_shop.id}" do
+        click_on "Update Merchant"
+      end
 
       fill_in 'Name', with: "Brian's Super Cool Bike Shop"
       fill_in 'Address', with: "1234 New Bike Rd."
@@ -39,7 +44,10 @@ RSpec.describe "As a Visitor" do
 
     it 'I see a flash message if i dont fully complete form' do
       visit "/merchants"
-      click_on "Update Merchant"
+
+      within "#merchant-#{@bike_shop.id}" do
+        click_on "Update Merchant"
+      end
 
       fill_in 'Name', with: ""
       fill_in 'Address', with: "1234 New Bike Rd."

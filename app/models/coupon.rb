@@ -10,4 +10,8 @@ class Coupon < ApplicationRecord
 
   has_many :user_coupons, dependent: :destroy
   has_many :users, through: :user_coupons
+
+  def uses(user)
+    UserCoupon.where(user_id: user.id).where(coupon_id: self.id).count
+  end
 end

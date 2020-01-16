@@ -22,6 +22,8 @@ RSpec.describe "As a user", type: :feature do
   visit "/items/#{@seat.id}"
   click_on "Add To Cart"
   visit cart_path
+  @user = create(:regular_user)
+  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
   end
 
@@ -80,5 +82,13 @@ RSpec.describe "As a user", type: :feature do
 
     expect(page).to have_content("Total: $4.35")
     expect(page).to have_content("Discounted Total $4.35")
+  end
+
+  it "User can only use a coupon once" do
+    @user.user_coupons.create(coupon: @coupon_1)
+    fill_in "Code", with: @coupon_1.code
+    click_button "Add Coupon"
+    expect(current_path).to eq(cart_path)
+    expect(page).to have_content("Please log in to use this coupon or check that the coupon has not already been used.")
   end
 end
