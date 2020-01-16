@@ -14,9 +14,6 @@ describe Coupon, type: :model do
   end
 
   describe "methods" do
-    # def uses(coupon, user)
-    #   UserCoupon.where(user_id: user.id).where(coupon_id: coupon.id).count
-    # end
       it "should be able to count coupon uses by user" do
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       coupon_1 = create(:random_coupon, percent: 0.43, merchant: meg)
