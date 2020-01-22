@@ -1,6 +1,7 @@
 class Admin::UsersController < Admin::BaseController
   def index
     @users = User.unscoped.all
+
   end
 
   def show
@@ -26,7 +27,15 @@ class Admin::UsersController < Admin::BaseController
 
   def update_role
     @user = User.find(params[:user_id])
-    @user.update(user_role_params)
+    @merchant = Merchant.where(name: params[:user][:merchant]).first
+      @user.update(user_role_params)
+      if params[:user][:role] == "merchant_employee"
+        @user.merchant_id = @merchant.id
+        @user.save
+      elsif params[:user][:role] != "merchant_employee" && @user.merchant_id != nil
+        @user.merchant_id = nil
+        @user.save
+      end
     flash[:success] = "The user role has been updated to #{@user.role}."
     redirect_to admin_dash_users_path
   end
