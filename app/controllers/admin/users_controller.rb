@@ -28,16 +28,22 @@ class Admin::UsersController < Admin::BaseController
   def update_role
     @user = User.find(params[:user_id])
     @merchant = Merchant.where(name: params[:user][:merchant]).first
-      @user.update(user_role_params)
-      if params[:user][:role] == "merchant_employee"
+      if params[:user][:role] == "merchant_employee" && @merchant
+        @user.update(user_role_params)
         @user.merchant_id = @merchant.id
         @user.save
       elsif params[:user][:role] != "merchant_employee" && @user.merchant_id != nil
+        @user.update(user_role_params)
         @user.merchant_id = nil
         @user.save
       end
-    flash[:success] = "The user role has been updated to #{@user.role}."
-    redirect_to admin_dash_users_path
+    if @user.update
+      flash[:success] = "The user role has been updated to #{@user.role}."
+      redirect_to admin_dash_users_path
+    else
+      flash[:error] = "Please try again. You may need to choose a merchant."
+      redirect_to admin_dash_users_path
+    end
   end
 
   def toggle_active

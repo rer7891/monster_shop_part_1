@@ -47,4 +47,26 @@ RSpec.describe "As an admin", type: :feature do
     expect(user.merchant_id).to eq(nil)
     expect(page).to have_content("The user role has been updated to #{user.role}.")
   end
+
+  it "won't update if no merchant is given for a merchant employee" do
+    admin = create(:admin_user)
+    user = create(:random_user)
+    merchant = create(:ray_merchant)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+    visit admin_dash_users_path
+
+    expect(user.role).to eq("user")
+
+    within "#user-#{user.id}" do
+      select "merchant_employee", :from => "Role"
+      click_on "Update"
+    end
+
+    user.reload
+    expect(user.role).to eq("user")
+    expect(user.merchant_id).to eq(nil)
+save_and_open_page
+    expect(page).to have_content("Please try again. You may need to choose a merchant.")
+  end
 end
